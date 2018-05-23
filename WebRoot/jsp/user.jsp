@@ -115,8 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                           pageSize: params.limit,
 	                           //companyId:subcompany,
 	                           //name:name
-	                           userNo:no==null?"":no,
-	                           eventType:name=null?0:name
+	                           //userNo:no==null?"":no,
+	                           //eventType:name=null?0:name
 	                         };
 	                 },
 	         
@@ -145,6 +145,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 					field: "eventDes",
 	 					title: "描述"
 	 				},
+	 				{
+	 					field: "eventTime",
+	 					title: "时间"
+	 				},
 	 				
 	 				{
 	 				
@@ -157,17 +161,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                pagination:true,
 	                //双击点击，编辑界面（先获取行信息） 
 	               onDblClickRow: function (row) {
-	               p.show({
-	     //          x:100,  
-	     //          y:100  
-	               });
-	          id=row.id;
-	         $("#dia_userNo").attr("value",row.userNo);
-	         $("#dia_eventType").attr("value",row.eventType);
-	         $("#dia_eventDes").attr("value",row.eventDes);
-	         //设置这个按钮的信息 
-	         $("#ok").attr("value","保存");
-	         $("#ok").attr("name","update");
+	    
+	        
+	     
+	      
 	         },
 	            });
 	           };
@@ -186,29 +183,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	     $("#btnselect").click(function(){
 	    var options = $("#tbevent").bootstrapTable('refresh');
-	       
+	       });
 	      
-	     });
-	       $("#tab11").click(function(){
-	       alert("切换");
-	       
-	      
-	     });
 	     
-	     $("#btn_delete").click(function(){
-	     //获取所选行的数组
-	    var selects = $("#tbevent").bootstrapTable("getSelections");
-	    for(var i=0;i<selects.length;i++){
-	    
-	     var str=selects[0];
-	    
-	    }
-	    alert(str+"");
-	       
-	      
-	     });
-	     
-  
+	   
   
   
   

@@ -1,4 +1,7 @@
 package com.ls.nssh.common;
+
+import java.util.Date;
+
 /**
  * 
  * 分页处理的类
@@ -9,6 +12,9 @@ package com.ls.nssh.common;
 public class Page {
 	private int pageNumber;//
 	private int pageSize;
+	private Date startTime;
+	private Date endTime;
+	
 	
 	public Page() {
 		super();
@@ -29,6 +35,18 @@ public class Page {
 	}
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+	public Date getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 	
 	

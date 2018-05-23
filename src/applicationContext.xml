@@ -34,7 +34,7 @@
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
 		<property name="url"
-			value="jdbc:sqlserver://localhost:1433;databaseName=sshe">
+			value="jdbc:sqlserver://localhost:1433;databaseName=RMMS">
 		</property>
 		<property name="username" value="sa"></property>
 		<property name="password" value="309645512"></property>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.ls.nssh.common.Page;
 import com.ls.nssh.entity.LsEventHandle;
 import com.ls.nssh.service.EventService;
 
@@ -32,29 +33,28 @@ public class EventShowAction extends BaseAction {
 	private int total;
 	
 	
-	
+	/**
+	 *  根据条件来查询
+	 * @return
+	 */
 	public String loadEvents() {
 		try{
 		rows=new ArrayList<LsEventHandle>();
-		String userNo = getRequest().getParameter("userNo");
-		int eventType;
-		if(getRequest().getParameter("eventType").isEmpty()){
-			eventType=0;
-		}else{
-			 eventType = Integer.parseInt(getRequest().getParameter("eventType"));
-		}
 		//页码
 		int offset = Integer.parseInt(getRequest().getParameter("pageNumber"));
 		//数量
 		int limit = Integer.parseInt(getRequest().getParameter("pageSize"));
+	     
+		List<LsEventHandle> events=eventService.loadAll(new Page(offset,limit));
+		total=events.size();
+		rows.clear();
+		rows.addAll(events);
 		
-		LsEventHandle eventDTO=new LsEventHandle();
-		eventDTO.setUserNo(userNo);
-		eventDTO.setEventType(eventType);
+		
 		//List<EventDTO> eventcounts=eventHandleManage.loadEventCounts(eventDTO);
 		//total=eventcounts.size();
 		//List<EventDTO> events=eventHandleManage.loadEvents(eventDTO,offset,limit);
-	    rows.clear();
+	     //rows.clear();
 	    //rows.addAll(events);
 	     
 		

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ls.nssh.common.Page;
 import com.ls.nssh.dao.EventDao;
 import com.ls.nssh.entity.LsEventHandle;
 import com.ls.nssh.service.EventService;
@@ -16,9 +17,9 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDao eventDao;
 
-	public List<LsEventHandle> loadAll() {
+	public List<LsEventHandle> loadAll(Page p) {
 	
-		return eventDao.loadAll();
+		return eventDao.loadAll(p);
 	}
 
 }
