@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="newssh"
+  id="myeclipse.1526788042235"
+  context-root="/newssh"
+  j2ee-spec="5.0"
+  archive="newssh.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
