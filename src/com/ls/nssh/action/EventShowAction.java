@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.ls.nssh.common.Page;
+import com.ls.nssh.common.PageData;
 import com.ls.nssh.entity.LsEventHandle;
 import com.ls.nssh.service.EventService;
 
@@ -28,7 +29,6 @@ public class EventShowAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private EventService eventService;
-	
 	private List<LsEventHandle> rows;
 	private int total;
 	
@@ -40,29 +40,22 @@ public class EventShowAction extends BaseAction {
 	public String loadEvents() {
 		try{
 		rows=new ArrayList<LsEventHandle>();
-		//页码
+		//当前页面的数量
 		int offset = Integer.parseInt(getRequest().getParameter("pageNumber"));
 		//数量
 		int limit = Integer.parseInt(getRequest().getParameter("pageSize"));
-	     
-		List<LsEventHandle> events=eventService.loadAll(new Page(offset,limit));
-		total=events.size();
+		PageData<LsEventHandle> events=eventService.loadAll(new Page(offset,limit));
+		total=events.getTotal();
 		rows.clear();
-		rows.addAll(events);
+		rows.addAll(events.getList());
 		
 		
 		//List<EventDTO> eventcounts=eventHandleManage.loadEventCounts(eventDTO);
 		//total=eventcounts.size();
 		//List<EventDTO> events=eventHandleManage.loadEvents(eventDTO,offset,limit);
-	     //rows.clear();
+	    //rows.clear();
 	    //rows.addAll(events);
-	     
-		
-	    
-	    
-	    
-		
-		}
+	    }
 		catch (Exception e) {
 			
 			

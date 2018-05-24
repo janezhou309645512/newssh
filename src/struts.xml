@@ -10,6 +10,18 @@
 	
 	</action>
 	
+		<action name="eventShow_*" class="com.ls.nssh.action.EventShowAction"
+			method="{1}">
+			<result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	<action name="eventHandle_*" class="com.ls.nssh.action.EventHandleAction"
+			method="{1}">
+			<result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
 	
 	
 		

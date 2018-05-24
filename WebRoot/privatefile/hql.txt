@@ -28,5 +28,5 @@ public List<Student> queryStudents(Student stud) {
           
         return query.list();  
     }  
-      
+      default-autowire="byName"
 }  

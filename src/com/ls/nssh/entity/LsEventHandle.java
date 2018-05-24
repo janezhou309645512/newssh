@@ -1,6 +1,7 @@
 package com.ls.nssh.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * LsEventHandle entity. @author MyEclipse Persistence Tools
@@ -14,7 +15,7 @@ public class LsEventHandle implements java.io.Serializable {
 	private String userNo;
 	private Integer eventType;
 	private String eventDes;
-	private Timestamp eventTime;
+	private Date eventTime;
 
 	// Constructors
 
@@ -65,11 +66,11 @@ public class LsEventHandle implements java.io.Serializable {
 		this.eventDes = eventDes;
 	}
 
-	public Timestamp getEventTime() {
+	public Date getEventTime() {
 		return this.eventTime;
 	}
 
-	public void setEventTime(Timestamp eventTime) {
+	public void setEventTime(Date eventTime) {
 		this.eventTime = eventTime;
 	}
 

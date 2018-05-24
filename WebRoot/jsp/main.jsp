@@ -45,7 +45,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
     </script>
   </head>
-  
   <body>
   <div class="easyui-layout" style="width:100%;height:100%;">
 	<div region="west" split="true" title="菜单" style="width:300px;">
@@ -54,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="easyui-accordion" style="width:300px;">
 	<div title="基础资料"  style="overflow:auto;padding:10px;">
 		<ul>
-    <li><a href="javascript:void(0)" onclick="addTab('人员信息','jsp/user.jsp')">人员信息</a></li>
+    <li><a href="javascript:void(0)" onclick="addTab('人员信息','jsp/event.jsp')">人员信息</a></li>
     <li>部门信息</li>
     <li>书架信息</li>
     
