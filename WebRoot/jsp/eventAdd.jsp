@@ -59,17 +59,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
 </div>
 <script type="text/javascript">
-
-function saveUser(){
+  function saveUser(){
 	$('#event_add_fr').form('submit',{
 		url: "/newssh/eventHandle_addEvent.action",
 		onSubmit: function(){
 			return $(this).form('validate');
+			
 		},
 		success: function(result){
+		alert(result);
+		
+		 //var data = eval('(' + result + ')'); // change the JSON string to javascript object
+       
 		     //解析json
 		 var result = $.parseJSON(data); 
-         var message=result.message;
+        var message=result.message;
+         alert(message);
+      
 			if (message=="OK"){//提交成功，清零
 			 $('#event_add_fr').form('clear');
 				
@@ -82,13 +88,9 @@ function saveUser(){
 		
 		
 	},
-})
-};
-
-
-
-
-
+	
+});
+}  
 
 </script>
 

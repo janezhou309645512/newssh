@@ -39,14 +39,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div>
-      <input type="date" value="2015-09-24" id="startDate"/>  
-      <input type="date" value="2015-09-24" id="endDate"/> 
-      <input type="text"  id="gongdan"/>
-      <input type="text"  id="liaohao"/>
-      <button   id="btnselect">查询</button>
-      
-    </div> 
+   <div class="panel-body" style="padding-bottom:0px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                     <label class="control-label col-sm-1" for="txt_search_departmentname">开始日期</label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="jsp_event_startDate">
+                        </div>
+                         <label class="control-label col-sm-1" for="txt_search_departmentname">结束日期</label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="jsp_event_endDate">
+                        </div>
+                    
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">工号</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="jsp_event_userNo">
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu">事件类型</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="jsp_event_eventType">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:100px" id="jsp_event_btnSelect" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>       
+  
+    
     <jsp:include page="eventAdd.jsp"/> 
     
     <div id="toolbar" class="btn-group">
@@ -189,10 +213,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       });
 	   $("#event_add").click(function(){
 	      $('#dlg').dialog('open');
+	   });
+	    
 	   
-	   
-	   
-	   });   
 	      
 	 </script>
     </body>
