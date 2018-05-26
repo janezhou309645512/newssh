@@ -30,12 +30,12 @@ public class EventServiceImpl implements EventService{
 		return eventDao.addEvent(l);
 	}
 
-	public Serializable updateEvent(LsEventHandle l) {
+	public boolean updateEvent(LsEventHandle l) {
 		// TODO Auto-generated method stub
 		return eventDao.updateEvent(l);
 	}
 
-	public Serializable deleteEvent(LsEventHandle l) {
+	public boolean deleteEvent(LsEventHandle l) {
 		// TODO Auto-generated method stub
 		return eventDao.deleteEvent(l);
 	}

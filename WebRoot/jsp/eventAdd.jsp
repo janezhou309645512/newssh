@@ -23,76 +23,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
-		closed="true" buttons="#dlg-buttons">
-	<div class="ftitle">事件提交</div>
-	<form id="event_add_fr" method="post">
-		<div class="fitem">
-			<label>工        号:</label>
-			<input name="userNo" class="easyui-validatebox" required="true">
-		</div>
-		<!--  
-		<div class="fitem">
-		<label>事件类型:</label>
-	<select  class="easyui-combobox" name="eventType" style="width:200px;">
-    <option value="aa">1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-</select>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">事件提交</h4>
+                    </div>
+                    <div class="modal-body">
+ 
+                        <div class="form-group">
+                            <label for="txt_departmentname">用户名</label>
+                            <input type="text" name="txt_departmentname" data-bind="value:userNo" class="form-control" id="txt_departmentname" placeholder="类目名称">
+                        </div>
+                          <div class="form-group">
+                            <label for="txt_departmentname">事件类型</label>
+                            <input type="text" name="txt_departmentname" data-bind="value:eventType" class="form-control" id="txt_departmentname" placeholder="类目名称">
+                        </div>
+                          <div class="form-group">
+                            <label for="txt_departmentname">事件描述</label>
+                            <input type="text" name="txt_departmentname" data-bind="value:eventDes" class="form-control" id="txt_departmentname" placeholder="类目名称">
+                        </div>
+                        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                        <button type="button" id="event_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    </div>
+                </div>
+            </div>
         </div>
-		-->
-		<div class="fitem">
-			<label>事件类型:</label>
-			<input name="eventType" class="easyui-validatebox" required="true">
-		</div>
-		<div class="fitem">
-			<label>事件描述:</label>
-			<input name="eventDes" class="easyui-validatebox" required="true">
-		</div>
-		
-	</form>
-</div>
-<div id="dlg-buttons">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
-</div>
-<script type="text/javascript">
-  function saveUser(){
-	$('#event_add_fr').form('submit',{
-		url: "/newssh/eventHandle_addEvent.action",
-		onSubmit: function(){
-			return $(this).form('validate');
-			
-		},
-		success: function(result){
-		alert(result);
-		
-		 //var data = eval('(' + result + ')'); // change the JSON string to javascript object
-       
-		     //解析json
-		 var result = $.parseJSON(data); 
-        var message=result.message;
-         alert(message);
-      
-			if (message=="OK"){//提交成功，清零
-			 $('#event_add_fr').form('clear');
-				
-			} else {
-			$.messager.show({
-					title: 'Error',
-					msg: message
-				});			
-				}
-		
-		
-	},
-	
-});
-}  
-
-</script>
+        </div>
+     
+    
 
   </body>
 </html>

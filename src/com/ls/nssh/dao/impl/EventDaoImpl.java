@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+
 import com.ls.nssh.common.Page;
 import com.ls.nssh.common.PageData;
 import com.ls.nssh.dao.EventDao;
@@ -19,9 +20,10 @@ import com.ls.nssh.util.HibernateUtil;
 public class EventDaoImpl implements EventDao{
 	//只有查询没有事物提交，其他有事物提交
 	private Session session;
-	 Query q;
+	 
 	public PageData<LsEventHandle> loadAll(Page p) {
 		PageData<LsEventHandle> pd=new PageData();
+		Query q;
 		try{
 			session = HibernateUtil.getSession();
 			 String hql="from LsEventHandle";
@@ -29,7 +31,7 @@ public class EventDaoImpl implements EventDao{
 			  q = session.createQuery(hql);
 			  int total=q.list().size();
 			  pd.setTotal(total);
-			  System.out.println(total+"");
+			 
 			  
 			  //第一页
 			  q.setFirstResult(p.getPageNumber());
@@ -66,13 +68,53 @@ public class EventDaoImpl implements EventDao{
 		
 		
 	}
-	public Serializable updateEvent(LsEventHandle l) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean updateEvent(LsEventHandle l) {
+		boolean res=false;
+		try{
+			session = HibernateUtil.getSession();
+			//获取事务
+			Transaction tx = session.getTransaction();
+			//开启事务
+			tx.begin();
+			//先通过主键id查询到数据库对象
+			LsEventHandle leh= (LsEventHandle)session.get(LsEventHandle.class,l.getId());
+			leh.setUserNo(l.getUserNo());
+			leh.setEventType(l.getEventType());
+			leh.setEventDes(l.getEventDes());
+			leh.setEventTime(l.getEventTime());
+		    session.update(leh);
+			tx.commit();
+			res=true;
+		}catch (Exception e) {
+			res=false;
+		}finally{
+			
+			session.close();
+		}
+		
+		return res;
 	}
-	public Serializable deleteEvent(LsEventHandle l) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteEvent(LsEventHandle l) {
+		boolean res=false;
+		try{
+			session = HibernateUtil.getSession();
+			//获取事务
+			Transaction tx = session.getTransaction();
+			//开启事务
+			tx.begin();
+			//先通过主键id查询到数据库对象
+			LsEventHandle leh= (LsEventHandle)session.get(LsEventHandle.class,l.getId());
+			session.delete(leh);
+			tx.commit();
+			res=true;
+		}catch (Exception e) {
+			res=false;
+		}finally{
+			
+			session.close();
+		}
+		
+		return res;
 	}
 
 }

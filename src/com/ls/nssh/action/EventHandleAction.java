@@ -27,8 +27,8 @@ public class EventHandleAction extends BaseAction{
 	
 	
 	
-     public String addEvent() throws ParseException{
-		
+     public String addEvent(){
+		try{
 		String userNo = getRequest().getParameter("userNo");
 		int eventType= Integer.parseInt(getRequest().getParameter("eventType"));
 		String eventDes = getRequest().getParameter("eventDes");
@@ -39,55 +39,68 @@ public class EventHandleAction extends BaseAction{
 		l.setEventDes(eventDes);
 		l.setEventTime(new Date());
 		Serializable a=eventService.addEvent(l);
-		if(a.equals("1")){
+		System.out.println(a.toString());
+		if((a.toString()).equals("0")){
 			
-			message="OK";
+			message="NO";
 		}else{
+			message="OK";
+		}
+		}
+		catch (Exception e) {
 			message="NO";
 		}
 		 return "jsonData";
 	 }
 	
-	 public String updateEvent() throws ParseException{
-		   
-		    int id =Integer.parseInt(getRequest().getParameter("id"));
+	 public String updateEvent(){
+		 try{
+		    //传要查询要修改的数据
+		    String id =getRequest().getParameter("id");
+		    //修改的具体信息
 			String userNo = getRequest().getParameter("userNo");
 			int eventType= Integer.parseInt(getRequest().getParameter("eventType"));
 			String eventDes = getRequest().getParameter("eventDes");
-			LsEventHandle eventDTO=new LsEventHandle();
-		    eventDTO.setUserNo(userNo);
-			eventDTO.setEventType(eventType);
-			eventDTO.setEventDes(eventDes);
+		    LsEventHandle l=new LsEventHandle();
+			l.setId(id);
+			l.setUserNo(userNo);
+			l.setEventType(eventType);
+			l.setEventDes(eventDes);
+			l.setEventTime(new Date());
 			
-			if(1==1){
+			boolean res=eventService.updateEvent(l);
+			if(res==true){
 				message="OK";
 				
 			}else{
 				message="NO";
 			}
+		 }catch (Exception e) {
+			 message="NO";
 			
+		}
 		     return "jsonData";
 		 }
+	 
 	
-	 public String deleteEvent() throws ParseException{
-		
-		 int id =Integer.parseInt(getRequest().getParameter("id"));
-		 //String userNo = getRequest().getParameter("userNo");
-		 //int eventType= Integer.parseInt(getRequest().getParameter("eventType"));
-		//String eventDes = getRequest().getParameter("eventDes");
-		
-		
-			//eventDTO.setUserNo(userNo);
-			//eventDTO.setEventType(eventType);
-			//eventDTO.setEventDes(eventDes);
-		
-			if(1==1){
+	 public String deleteEvent(){
+		try{
+		    String id =getRequest().getParameter("id");
+		 
+		    LsEventHandle l=new LsEventHandle();
+			l.setId(id);
+			boolean res=eventService.deleteEvent(l);
+		   
+			if(res==true){
 				message="OK";
 				
 			}else{
 				message="NO";
 			}
-			
+		}
+		catch (Exception e) {
+			message="NO";
+		}
 		     return "jsonData";
 		 }
 	

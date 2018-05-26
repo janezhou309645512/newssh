@@ -23,13 +23,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
- 
+ <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+		closed="true" buttons="#dlg-buttons">
+	<div class="ftitle">事件提交</div>
+	<form id="event_add_fr" method="post">
+		<div class="fitem">
+			<label>工        号:</label>
+			<input name="userNo" class="easyui-validatebox" required="true">
+		</div>
+		<!--  
+		<div class="fitem">
+		<label>事件类型:</label>
+	<select  class="easyui-combobox" name="eventType" style="width:200px;">
+    <option value="aa">1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+</select>
+        </div>
+		-->
+		<div class="fitem">
+			<label>事件类型:</label>
+			<input name="eventType" class="easyui-validatebox" required="true">
+		</div>
+		<div class="fitem">
+			<label>事件描述:</label>
+			<input name="eventDes" class="easyui-validatebox" required="true">
+		</div>
+		
+	</form>
+</div>
+<div id="dlg-buttons">
+	<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+</div>
+<script type="text/javascript">
+  function saveUser(){
+	$('#event_add_fr').form('submit',{
+		url: "/newssh/eventHandle_addEvent.action",
+		onSubmit: function(){
+			return $(this).form('validate');
+			
+		},
+		success: function(result){
+		
+		
+		 //var data = eval('(' + result + ')'); // change the JSON string to javascript object
+       
+		     //解析json
+		 var data=$.parseJSON(result); 
+        var message=data.message;
+         alert(message);
+      
+			if (message=="OK"){//提交成功，清零
+			 $('#event_add_fr').form('clear');
+				
+			} else {
+			$.messager.show({
+					title: 'Error',
+					msg: message
+				});			
+				}
+		
+		
+	},
+	
+});
+}  
 
-   <ul>
-    <li>查询</li>
-    <li>借书</li>
-    <li>还书</li>
-    </ul> 
-     
+</script>
   </body>
 </html>

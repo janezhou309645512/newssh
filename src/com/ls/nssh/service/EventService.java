@@ -13,8 +13,8 @@ public interface EventService {
 	
 	public PageData<LsEventHandle> loadAll(Page p);
 	public Serializable addEvent(LsEventHandle l);
-	public Serializable updateEvent(LsEventHandle l);
-	public Serializable deleteEvent(LsEventHandle l);
+	public boolean updateEvent(LsEventHandle l);
+	public boolean deleteEvent(LsEventHandle l);
 	
 	
 	
