@@ -1,3 +1,19 @@
+1.table怎样获取每行数据
+2.时间问题（界面时间与数据库时间）
+3.文件上传与下载
+4.excel导入与导出
+5.权限问题
+6.打印文件
+//4.ID后面的操作
+5.查询
+6.时间（排序，数据库对应，获取查询）
+//默认为当天的日期
+//按时间排序
+
+
+
+
+
 public List<Student> queryStudents(Student stud) {  
         boolean f1=false,f2=false,f3=false;  
         Session s = HibernateSessionFactory.getSession();  

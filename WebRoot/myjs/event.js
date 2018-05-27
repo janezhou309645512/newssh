@@ -2,17 +2,40 @@
    $(window).resize(function() {
       $("#jsp_event_tb").bootstrapTable("resetView", {
           height: tableHeight()
-      })
-   })
+      });
+   });
    $(function () {
-  
+	   //初始化
+	   $('#jsp_event_startDate').datebox({
+		    required:true
+		});
+	   $('#jsp_event_startDate').datebox('setValue', getCurrentDate());
+	   
+	   $('#jsp_event_endDate').datebox({
+		    required:true
+		});
+	   $('#jsp_event_endDate').datebox('setValue', getCurrentDate());
+	 
   //1.初始化Table
   var oTable = new TableInit();
   oTable.Init();
-   //2.初始化Button的点击事件
-   /* var oButtonInit = new ButtonInit();
-   oButtonInit.Init(); */
+   
+  operate.operateInit();
     });
+   
+   
+ //获取当前的日期格式化
+   function getCurrentDate(){
+	    
+	    var date = new Date();
+	    var dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+	     return dateString;
+	   
+	  
+	   }
+   
+   
+   
   var TableInit = function () {
 	    var oTableInit = new Object();
 	    //初始化Table
@@ -39,6 +62,7 @@
 	                 //可供选择的每页的行数（*）    
 	                 pageList: [10, 25, 50, 100],
 	                  showColumns: true,                  //是否显示所有的列（选择显示的列）
+	                  showHeader:true,                   //默认显示表头
 	                 showRefresh: true,                  //是否显示刷新按钮
 	                 clickToSelect: true,                //是否启用点击选中行
 	                 //这个接口需要处理bootstrap table传递的固定参数,并返回特定格式的json数据  
@@ -52,16 +76,24 @@
 	                 
 	                            
 	                 queryParams : function(params) {
-	                  // var no = $("#gongdan").val();
-	                   //var name = $("#liaohao").val();
+	                	 var start = $('#jsp_event_startDate').datebox('getValue');
+	                	 var end = $('#jsp_event_endDate').datebox('getValue');
+	                	 var un=$('#jsp_event_userNo').val();
+	                	 var et=$('#jsp_event_eventType').val();
+	                	
 	                     return {
+	                    	   //分页
 	                           pageNumber: params.offset,
-	                           pageSize: params.limit
+	                           pageSize: params.limit,
 	                           
-	                           //name:name
-	                           //userNo:no==null?"":no,
-	                           //eventType:name=null?0:name
-	                         };
+	                           //startDate:start,//开始日期
+	                           //endDate:end,//结束日期
+	                           //参数查询
+	                           //userNo:un==null?"":un,
+	                           //eventType:et==null?"":et
+	                           
+	                           
+	                       };
 	                 },
 	         
 	                 //分页方式：client客户端分页，server服务端分页（*）
@@ -74,14 +106,10 @@
 	               
 	               columns:[{
 	 					checkbox: true
-	 				}, {
-	 					field: "id",
-	 					title: "id",
-	 					sortable: true
-	 				}, {
+	 				},  {
 	 					field: "userNo",
 	 					title: "用户名",
-	 					sortable: true
+	 					
 	 				}, {
 	 					field: "eventType",
 	 					title: "类型"
@@ -95,7 +123,7 @@
 	 				},
 	 				
 	 				{
-	 				
+	 					field: "id",
 	                     title: '操作',
 	                     width: 120,
 	                     align: 'center',
@@ -111,6 +139,7 @@
 	           };
 	            //操作栏的格式化
 	         function actionFormatter(value, row, index) {
+	        	 //value 字段名  row 行数据  index：此行的下标  
 	             var id = value;
 	             var result = "";
 	             result += "<a href='javascript:;' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='查看'><span class='glyphicon glyphicon-search'></span></a>";
@@ -120,25 +149,21 @@
 	             return result;
 	         }	 
 	    
-	     $("#btnselect").click(function(){
-	    var options = $("#jsp_event_tb").bootstrapTable('refresh');
+	     $("#jsp_event_btnSelect").click(function(){
+	     var options = $("#jsp_event_tb").bootstrapTable('refresh');
 	       });
 	  
 	    
 	   
 	      
 	 //有关增删查改的操作
-$(function() {
-    //初始化
-    operate.operateInit();
-});
-// 操作
 var operate = {
     // 初始化按钮事件
     operateInit : function() {
         this.operateAdd();
         this.operateUpdate();
         this.operateDelete();
+      
         this.DepartmentModel = {
              //和标签中的data-bind  对应
             userNo : ko.observable(),
@@ -154,6 +179,9 @@ var operate = {
                     $("#myModal").modal().on(
                             "shown.bs.modal",
                             function() {
+                            	$("#myModalLabel").html("添加事件");
+                            	$("#event_submit").html("新增");
+                            	 $("#event_submit").attr("name","addEvent");
                                 var oEmptyModel = {
                                 
                                     userNo : ko.observable(),
@@ -179,8 +207,15 @@ var operate = {
                     $("#myModal").modal().on(
                             "shown.bs.modal",
                             function() {
-                                var arrselectedData = tableInit.myViewModel
-                                        .getSelections();
+                            	//改变主题变成编辑 
+                            	$("#myModalLabel").html("编辑");
+                            	$("#event_submit").html("保存");
+                            	 $("#event_submit").attr("name","updateEvent");
+                            	
+                            	  var arrselectedData = $("#jsp_event_tb").bootstrapTable(
+                                  'getSelections');
+                                //var arrselectedData = tableInit.myViewModel
+                                       // .getSelections();//
                                 if (!operate.operateCheck(arrselectedData)) {
                                     return;
                                 }
@@ -206,16 +241,35 @@ var operate = {
                     if (arrselectedData.length <= 0) {
                         alert("请选中一行");
                     } else {
-                        var b = JSON.stringify(arrselectedData);
+                        //var b = JSON.stringify(arrselectedData);
+                    	var ids="";
+                    	for(var i=0;i<arrselectedData.length;i++){
+                    		ids+=(arrselectedData[i].id+"&");
+                    		}
+                    	
                         $.ajax({
                             url : "/newssh/eventHandle_deleteEvent.action",
                             type : "post",
                             data : {
-                                "id" : b  //传输到后台的是 json对象 后台接收后需要转换成list  然后循环获取id删除
+                                "id" : ids  //传输到后台的是 json对象 后台接收后需要转换成list  然后循环获取id删除
                             },
-                            success : function(status) {
-                                alert(status);
-                                $("#jsp_event_tb").bootstrapTable('refresh');
+                            success : function(result) {
+                            	 var data=$.parseJSON(result); 
+                                 var message=data.message;
+                                  if (message=="OK"){//提交成功，清零
+                                	  
+                                   $("#jsp_event_tb").bootstrapTable('refresh');
+                         				$.messager.show({
+                         					title: '删除成功',
+                         					msg: message
+                         				});	
+                         				
+                         			} else {
+                         			$.messager.show({
+                         					title: '删除失败',
+                         					msg: message
+                         				});			
+                         				}
                             }
                         });
                     }
@@ -223,7 +277,9 @@ var operate = {
     },
     // 保存数据
     operateSave : function() {  //当点击保存的时候回跳到这个方法
+    	
         $('#event_submit').on("click", function() {
+        	
             // 取到当前的viewmodel
             var oViewModel = operate.DepartmentModel;
             // 将Viewmodel转换为数据model
@@ -231,11 +287,13 @@ var operate = {
             if (oDataModel.userNo == undefined || oDataModel.userNo.trim() == "") {
                 alert("类目不能为空");
             } else {
-               
+            	var n=$('#event_submit').attr("name");
+               if(n=="addEvent"){
                 $.ajax({
                     url : "/newssh/eventHandle_addEvent.action",  //url
                     type : "post",
                     data : {   //参数
+                    	
                         "userNo" : oDataModel.userNo,
                         "eventType" :oDataModel.eventType,
                         "eventDes" :oDataModel.eventDes
@@ -262,17 +320,72 @@ var operate = {
                       
                     }
                 });
+               }
+               else if(n=="updateEvent"){
+            	   var arrselectedData = $("#jsp_event_tb").bootstrapTable(
+                   'getSelections');
+                  $.ajax({
+                      url : "/newssh/eventHandle_updateEvent.action",  //url
+                      type : "post",
+                      data : {   //参数
+                      	"id":arrselectedData[0].id,
+                          "userNo" : oDataModel.userNo,
+                          "eventType" :oDataModel.eventType,
+                          "eventDes" :oDataModel.eventDes
+                      },
+                      success : function(result) {
+                      	 var data=$.parseJSON(result); 
+                           var message=data.message;
+                            if (message=="OK"){//提交成功，清零
+                          	  
+                               $("#jsp_event_tb").bootstrapTable('refresh');
+                   				$.messager.show({
+                   					title: '修改成功',
+                   					msg: message
+                   				});	
+                   				
+                   			} else {
+                   			$.messager.show({
+                   					title: 'Error',
+                   					msg: message
+                   				});			
+                   				}
+                   		
+                         
+                        
+                      }
+                  }); 
+            	   
+            	   
+            	   
+            	   
+            	   
+            	   
+            	   
+               }
+                
+                
+                
             }
+               
+               
         });
     },
+ 
     // 数据校验
     operateCheck : function(arr) {
         if (arr.length <= 0) {
-            alert("请至少选择一行数据");
+        	$.messager.show({
+					title: '至少选择一行',
+					msg: message
+				});	
             return false;
         }
         if (arr.length > 1) {
-            alert("只能编辑一行数据");
+        	$.messager.show({
+					title: '只能选择一行',
+					msg: message
+				});	
             return false;
         }
         return true;

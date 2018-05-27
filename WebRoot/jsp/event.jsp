@@ -19,16 +19,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	
+	<!-- 引入bootstrap table控件-->
 	  <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.5.5.2/jquery.min.js"></script>  
       <script src="${pageContext.request.contextPath}/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="${pageContext.request.contextPath}/bootstrap-table/js/bootstrap-table.js"></script>
 		<script src="${pageContext.request.contextPath}/bootstrap-table/js/bootstrap-table-zh-CN.js"></script>
     <script src="https://cdn.bootcss.com/knockout/3.4.0/knockout-min.js"></script>
     <script src="${pageContext.request.contextPath}/knockout/knockout.mapping-latest.js"></script>
-    <script src="${pageContext.request.contextPath}/myjs/event.js"></script>
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/3.3.4/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-table/css/bootstrap-table.css" />
+<!-- bootstrap引入时间控件  -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/3.3.4/css/bootstrap-datetimepicker.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/3.3.4/css/bootstrap-datetimepicker.min.css" />
+ <script src="${pageContext.request.contextPath}/bootstrap/3.3.4/js/bootstrap-datetimepicker.js"></script>
+ <script src="${pageContext.request.contextPath}/bootstrap/3.3.4/js/bootstrap-datetimepicker.min.js"></script>
+ <script src="${pageContext.request.contextPath}/bootstrap/3.3.4/js/locales/bootstrap-datetimepicker.fr.js"></script>
 
+  
   <!-- 引入EasyUI -->
   <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.5.5.2/jquery.easyui.min.js"></script>
   <!-- 引入EasyUI的中文国际化js，让EasyUI支持中文 -->
@@ -38,6 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!-- 引入EasyUI的图标样式文件-->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui-1.5.5.2/themes/icon.css" type="text/css"/>
  
+ <!-- 引入自定义的 -->
+ <script src="${pageContext.request.contextPath}/myjs/event.js"></script>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/event.css" />
   </head>
   
   <body>
@@ -47,31 +60,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
+                  
                      <label class="control-label col-sm-1" for="txt_search_departmentname">开始日期</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" id="jsp_event_startDate">
-                        </div>
-                         <label class="control-label col-sm-1" for="txt_search_departmentname">结束日期</label>
-                        <div class="col-sm-3">
-                            <input type="date" class="form-control" id="jsp_event_endDate">
+                            <input id="jsp_event_startDate" type="text" class="easyui-datebox form-control" required="required">
+                        
                         </div>
                     
+                        
+                       
                         <label class="control-label col-sm-1" for="txt_search_departmentname">工号</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="jsp_event_userNo">
                         </div>
+                        
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button"   id="jsp_event_btnSelect" class="btn btn-primary event_btn">查询</button>
+                        </div>
+                        
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">结束日期</label>
+                        <div class="col-sm-3">
+                           <input id="jsp_event_endDate" type="text" class="easyui-datebox form-control" required="required">
+                        </div>
+                        
+                        
                         <label class="control-label col-sm-1" for="txt_search_statu">事件类型</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="jsp_event_eventType">
+                            <input type="text" class="form-control"  id="jsp_event_eventType">
                         </div>
-                        <div class="col-sm-4" style="text-align:left;">
-                            <button type="button" style="margin-left:100px" id="jsp_event_btnSelect" class="btn btn-primary">查询</button>
-                        </div>
+                        
+                        
                     </div>
                 </form>
             </div>
         </div>       
-  
+       </div> 
     
     <jsp:include page="eventAdd.jsp"/> 
     
@@ -89,10 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <table  id="jsp_event_tb"></table> 
    <script type="text/javascript">
    
-   
-   
-   
-   
+ 
    
    </script>
    

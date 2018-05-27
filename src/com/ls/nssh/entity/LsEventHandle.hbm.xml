@@ -19,8 +19,8 @@
         <property name="eventDes" type="java.lang.String">
             <column name="eventDes" />
         </property>
-        <property name="eventTime" type="java.util.Date">
-            <column name="eventTime" length="10" />
+        <property name="eventTime" type="java.sql.Timestamp">
+            <column name="eventTime" length="23" />
         </property>
     </class>
 </hibernate-mapping>

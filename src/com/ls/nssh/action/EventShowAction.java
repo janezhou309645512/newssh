@@ -1,18 +1,18 @@
 package com.ls.nssh.action;
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
-import javax.annotation.Resource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.ls.nssh.common.Page;
-import com.ls.nssh.common.PageData;
+import com.ls.nssh.common.PageIn;
+import com.ls.nssh.common.PageOut;
 import com.ls.nssh.entity.LsEventHandle;
 import com.ls.nssh.service.EventService;
 
@@ -44,43 +44,33 @@ public class EventShowAction extends BaseAction {
 		int offset = Integer.parseInt(getRequest().getParameter("pageNumber"));
 		//数量
 		int limit = Integer.parseInt(getRequest().getParameter("pageSize"));
-		PageData<LsEventHandle> events=eventService.loadAll(new Page(offset,limit));
+		/*
+		String startDate=getRequest().getParameter("startDate");
+		String endDate=getRequest().getParameter("endDate");
+		String userNo=getRequest().getParameter("userNo");
+		int eventType=Integer.parseInt(getRequest().getParameter("eventType"));
+		PageIn<LsEventHandle> pi=new PageIn<LsEventHandle>();
+		pi.setPageNumber(offset);
+		pi.setPageSize(limit);
+		pi.setStartTime(startDate);
+		pi.setEndTime(endDate);
+		LsEventHandle leh=new LsEventHandle();
+		leh.setUserNo(userNo);
+		leh.setEventType(eventType);
+		pi.setT(leh);
+		*/
+		PageIn<LsEventHandle> pi=new PageIn<LsEventHandle>();
+		pi.setPageNumber(offset);
+		pi.setPageSize(limit);
+		PageOut<LsEventHandle> events=eventService.loadAll(pi);
 		total=events.getTotal();
 		rows.clear();
 		rows.addAll(events.getList());
-		
-		
-		//List<EventDTO> eventcounts=eventHandleManage.loadEventCounts(eventDTO);
-		//total=eventcounts.size();
-		//List<EventDTO> events=eventHandleManage.loadEvents(eventDTO,offset,limit);
-	    //rows.clear();
-	    //rows.addAll(events);
-	    }
+        }
 		catch (Exception e) {
-			
-			
-			
-			
-			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		 return "jsonData";
-	   	
-		
-		
-		
-		
-		
-	}
+		return "jsonData";
+	   	}
 	
 	 public int getTotal() {
 			return total;

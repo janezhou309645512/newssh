@@ -9,17 +9,18 @@ import java.util.Date;
  *
  */
 
-public class Page {
+public class PageIn<T> {
 	private int pageNumber;//
 	private int pageSize;
-	private Date startTime;
-	private Date endTime;
+	private String startTime;
+	private String endTime;
+	private T t;
 	
 	
-	public Page() {
+	public PageIn() {
 		super();
 	}
-	public Page(int pageNumber, int pageSize) {
+	public PageIn(int pageNumber, int pageSize) {
 		super();
 		this.pageNumber = pageNumber;
 		this.pageSize = pageSize;
@@ -36,17 +37,24 @@ public class Page {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public Date getStartTime() {
+	
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	public T getT() {
+		return t;
+	}
+	public void setT(T t) {
+		this.t = t;
 	}
 	
 	

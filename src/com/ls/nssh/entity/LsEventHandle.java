@@ -15,7 +15,7 @@ public class LsEventHandle implements java.io.Serializable {
 	private String userNo;
 	private Integer eventType;
 	private String eventDes;
-	private Date eventTime;
+	private Timestamp eventTime;
 
 	// Constructors
 
@@ -66,11 +66,11 @@ public class LsEventHandle implements java.io.Serializable {
 		this.eventDes = eventDes;
 	}
 
-	public Date getEventTime() {
+	public Timestamp getEventTime() {
 		return this.eventTime;
 	}
 
-	public void setEventTime(Date eventTime) {
+	public void setEventTime(Timestamp eventTime) {
 		this.eventTime = eventTime;
 	}
 

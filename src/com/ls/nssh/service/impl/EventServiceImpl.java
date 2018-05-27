@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ls.nssh.common.Page;
-import com.ls.nssh.common.PageData;
+import com.ls.nssh.common.PageIn;
+import com.ls.nssh.common.PageOut;
 import com.ls.nssh.dao.EventDao;
 import com.ls.nssh.entity.LsEventHandle;
 import com.ls.nssh.service.EventService;
@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDao eventDao;
 
-	public PageData<LsEventHandle> loadAll(Page p) {
+	public PageOut<LsEventHandle> loadAll(PageIn p) {
 	
 		return eventDao.loadAll(p);
 	}

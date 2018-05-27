@@ -1,6 +1,7 @@
 package com.ls.nssh.action;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class EventHandleAction extends BaseAction{
 		l.setUserNo(userNo);
 		l.setEventType(eventType);
 		l.setEventDes(eventDes);
-		l.setEventTime(new Date());
+		l.setEventTime(new Timestamp(new Date().getTime()));
 		Serializable a=eventService.addEvent(l);
 		System.out.println(a.toString());
 		if((a.toString()).equals("0")){
@@ -66,7 +67,7 @@ public class EventHandleAction extends BaseAction{
 			l.setUserNo(userNo);
 			l.setEventType(eventType);
 			l.setEventDes(eventDes);
-			l.setEventTime(new Date());
+			l.setEventTime(new Timestamp(new Date().getTime()));
 			
 			boolean res=eventService.updateEvent(l);
 			if(res==true){

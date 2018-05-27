@@ -1,0 +1,2 @@
+//返回的json数据
+{"rows":[{"eventDes":"两点吃饭吧","eventTime":"2018-05-27T13:57:24","eventType":1,"id":"708bb96b-0c12-4fb2-af42-34eabec44ce3","userNo":"0003"},{"eventDes":"测试时间转换","eventTime":"2018-05-27T13:45:00","eventType":1,"id":"784f7e9f-ddfc-4d2e-a519-b0206fe2874b","userNo":"0010"},{"eventDes":"新需求","eventTime":"2018-05-25T00:00:00","eventType":1,"id":"ef840dd7-fab0-498f-9af0-dfc3778a37ae","userNo":"0001"}],"total":4}
