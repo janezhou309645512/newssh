@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDao eventDao;
 
-	public PageOut<LsEventHandle> loadAll(PageIn p) {
+	public PageOut<LsEventHandle> loadAll(PageIn<LsEventHandle> p) {
 	
 		return eventDao.loadAll(p);
 	}

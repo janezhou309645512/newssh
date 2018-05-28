@@ -21,21 +21,41 @@ public class EventDaoImpl implements EventDao{
 	//只有查询没有事物提交，其他有事物提交
 	private Session session;
 	 
-	public PageOut<LsEventHandle> loadAll(PageIn p) {
-		PageOut<LsEventHandle> pd=new PageOut();
-		Query q;
+	public PageOut<LsEventHandle> loadAll(PageIn<LsEventHandle> p) {
+		PageOut<LsEventHandle> pd=new PageOut<LsEventHandle>();
+		Query q1,q2;
 		try{
 			session = HibernateUtil.getSession();
-			 String hql="from LsEventHandle order by eventTime desc";
-			 //利用hql查询
-			  q = session.createQuery(hql);
-			  int total=q.list().size();
+			//利用hql查询总记录数
+			 String hql1="select count(*) from LsEventHandle";
+			 q1 = session.createQuery(hql1);
+			  Long countRecord =(Long)q1.uniqueResult(); 
+			  int total = countRecord.intValue();  
 			  pd.setTotal(total);
-			  //第一页
-			  q.setFirstResult(p.getPageNumber());
+			  
+			  
+			  
+			   //String hql2="from LsEventHandle order by eventTime desc";
+				String hql2="from LsEventHandle where CONVERT(VARCHAR(100),eventTime,23) between ? and ? and 1=1";
+				 
+				 if (!((LsEventHandle)p.getT()).getUserNo().isEmpty())
+		         {
+					 hql2 = hql2 + " and userNo = '" +((LsEventHandle)p.getT()).getUserNo()+ "' ";
+		         }
+		         if (((LsEventHandle)p.getT()).getEventType()!=0)
+		         {
+		        	 hql2 = hql2 + " and eventType ="+((LsEventHandle)p.getT()).getEventType();
+		         }
+		          hql2 = hql2 +" order by eventTime desc";
+			  //查询分页数据
+			  q2 = session.createQuery(hql2);
+			  q2.setFirstResult(p.getPageNumber());
 			  //一页的最大数量
-			  q.setMaxResults(p.getPageSize());
-			  pd.setList(q.list()); 
+			  q2.setMaxResults(p.getPageSize());
+			  q2.setParameter(0,p.getStartTime());
+			  q2.setParameter(1, p.getEndTime());
+			  
+			  pd.setList(q2.list()); 
 			 
 		}catch (Exception e) {
 			

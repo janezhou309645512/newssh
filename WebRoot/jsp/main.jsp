@@ -62,9 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div title="功能"  selected="true" style="padding:10px;">
      <ul>
     <li>查询</li>
-    <li>借书</li>
-    <li>还书</li>
-
+    <li><a href="javascript:void(0)" onclick="addTab('文件下载','jsp/download.jsp')">文件下载</a></li>
+    <li><a href="javascript:void(0)" onclick="addTab('上传文件','jsp/upload.jsp')">上传文件</a></li>
     <li><a href="javascript:void(0)" onclick="addTab('google','jsp/base.jsp')">Java</a></li>
 	<li><a href="javascript:void(0)" onclick="addTab('jquery','http://jquery.com/')">C#</a></li>
 			

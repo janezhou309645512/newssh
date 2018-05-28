@@ -44,24 +44,23 @@ public class EventShowAction extends BaseAction {
 		int offset = Integer.parseInt(getRequest().getParameter("pageNumber"));
 		//数量
 		int limit = Integer.parseInt(getRequest().getParameter("pageSize"));
-		/*
+		
 		String startDate=getRequest().getParameter("startDate");
 		String endDate=getRequest().getParameter("endDate");
 		String userNo=getRequest().getParameter("userNo");
 		int eventType=Integer.parseInt(getRequest().getParameter("eventType"));
+
 		PageIn<LsEventHandle> pi=new PageIn<LsEventHandle>();
 		pi.setPageNumber(offset);
 		pi.setPageSize(limit);
+		
 		pi.setStartTime(startDate);
 		pi.setEndTime(endDate);
 		LsEventHandle leh=new LsEventHandle();
 		leh.setUserNo(userNo);
 		leh.setEventType(eventType);
 		pi.setT(leh);
-		*/
-		PageIn<LsEventHandle> pi=new PageIn<LsEventHandle>();
-		pi.setPageNumber(offset);
-		pi.setPageSize(limit);
+	
 		PageOut<LsEventHandle> events=eventService.loadAll(pi);
 		total=events.getTotal();
 		rows.clear();

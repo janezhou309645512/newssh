@@ -22,7 +22,10 @@
 				<param name="contentType">text/html</param>
 			</result>
 		</action>
-	
+	<action name="upload_*" class="com.ls.nssh.action.UploadAction"
+			method="{1}">
+		 <result name="OK">/index.jsp</result> 
+		</action>
 	
 		
 	</package>

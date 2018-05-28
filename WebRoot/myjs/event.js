@@ -4,6 +4,7 @@
           height: tableHeight()
       });
    });
+   //juery加载
    $(function () {
 	   //初始化
 	   $('#jsp_event_startDate').datebox({
@@ -19,8 +20,13 @@
   //1.初始化Table
   var oTable = new TableInit();
   oTable.Init();
+  $("#jsp_event_btnSelect").click(function(){
+	     var options = $("#jsp_event_tb").bootstrapTable('refresh');
+	       });
+	  
    
   operate.operateInit();
+  
     });
    
    
@@ -79,18 +85,19 @@
 	                	 var start = $('#jsp_event_startDate').datebox('getValue');
 	                	 var end = $('#jsp_event_endDate').datebox('getValue');
 	                	 var un=$('#jsp_event_userNo').val();
-	                	 var et=$('#jsp_event_eventType').val();
+	                     var et=$('#jsp_event_eventType').val();
 	                	
-	                     return {
+	                	
+	                    return {
 	                    	   //分页
-	                           pageNumber: params.offset,
-	                           pageSize: params.limit,
+	                          pageNumber: params.offset,
+	                          pageSize: params.limit,
 	                           
-	                           //startDate:start,//开始日期
-	                           //endDate:end,//结束日期
+	                          startDate:start,//开始日期
+	                          endDate:end,//结束日期
 	                           //参数查询
-	                           //userNo:un==null?"":un,
-	                           //eventType:et==null?"":et
+	                          userNo:un.length==0?"":un,//对参数是否为空进行判断
+	                          eventType:et.length==0?"0":et
 	                           
 	                           
 	                       };
@@ -149,10 +156,7 @@
 	             return result;
 	         }	 
 	    
-	     $("#jsp_event_btnSelect").click(function(){
-	     var options = $("#jsp_event_tb").bootstrapTable('refresh');
-	       });
-	  
+	    
 	    
 	   
 	      
