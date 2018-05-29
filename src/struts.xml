@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+
+ <!--指定国际化资源文件-->
+    <constant name="struts.custom.i18n.resources" value="app"></constant>
+
+    <!--设置Struts应用的解码集-->
+    <constant name="struts.i18n.encoding" value="utf-8"/>
+    <!-- 
+   <constant name="struts.multipart.saveDir" value="/tmp"/>-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="true"/>
+    
+ 
+   
+
+
 	<package name="base" extends="struts-default,json-default">
+	<interceptors>
+            <!--配置拦截器栈(在拦截器章节有讲述)-->
+            <interceptor-stack name="myStack">
+                <!--配置fileUpload拦截器-->
+                <interceptor-ref name="fileUpload">
+                    <!--配置允许上传文件的类型（此处要注意的是png图片在ie浏览器中是image/x-png类型）-->
+                    <!--  
+                    <param name="allowedTypes">image/x-png,image/bmp,image/gif,image/jpeg,image/jpg</param>
+                    -->
+                    <!--配置允许上传文件大小拦截器，单位是字节（2的16次幂=65536（64k））-->
+                    <param name="maximumSize">65536</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+	
+	
 	<action name="user_*" class="com.ls.nssh.action.UserAction" method="{1}">
 			<result type="json" name="jsonData">
 				<param name="contentType">text/html</param>
@@ -24,9 +56,45 @@
 		</action>
 	<action name="upload_*" class="com.ls.nssh.action.UploadAction"
 			method="{1}">
-		 <result name="OK">/index.jsp</result> 
+			 <!--使用拦截器栈-->
+            <interceptor-ref name="myStack"/>
+		   <result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+			 <!--过滤失败，系统会转入input逻辑视图，这里配置其返回选择界面-->
+            <result name="input">index.jsp</result>
 		</action>
-	
+		<action name="multiUpload_*" class="com.ls.nssh.action.MultiUploadAction"
+			method="{1}">
+			 <!--使用拦截器栈-->
+            <interceptor-ref name="myStack"/>
+		   <result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+			 <!--过滤失败，系统会转入input逻辑视图，这里配置其返回选择界面-->
+            <result name="input">index.jsp</result>
+		</action>
+	 <action name="downLoad_*" class="com.ls.nssh.action.DownLoadAction">
+            <!--结果类型为String-->
+            <result type="stream">
+
+                <param name="contentType">${contentType}</param>
+                <!--默认就是inputStream,它将会指示StreamResult通过
+                  inputName属性值的getter和setter方法，如这里就是
+                  getInputStream()来获取下载文件的内容,意味着Action
+                  要有这个方法
+                  -->
+                <param name="inputName">inputStream</param>
+                 <!--默认为inline（在线打开）,设置为attachment将会告诉浏览器下载
+                     该文件,filename指定下载文件时的文件名，若未指定将会以浏览器
+                     页面名作为文件名,如：以download.action作为文件名
+                   -->
+                <param name="contentDisposition">attachment;filename=${filename}</param>
+                <!--指定下载文件的缓冲大小-->
+                <param name="bufferSize">4096</param>
+
+            </result>
+        </action>
 		
 	</package>
 </struts>    

@@ -28,6 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href="http://192.168.66.26/3.8/screen.txt">文本</a>  
     <h1>通过servlet程序下载文件</h1>  
     <a href="${pageContext.request.contextPath}/images/logo.png">图片</a>  
-    <a href="${pageContext.request.contextPath}/privatefile/hql.txt">文件</a>  
+    <a href="${pageContext.request.contextPath}/privatefile/hql.txt">文件</a> 
+     <input id="file2" type="file" name="file2" multiple="true"> 
+     <h1>本地地址</h1>
+     　请下载中文课件：<a href="downLoad_downloadFile.action?downPath=第一章节.doc">中</a><br>
+  　　请下载英文课件：<a href="downLoad_downloadFile.action?downPath=chapter01.doc">英</a><br> 
   </body>
 </html>
