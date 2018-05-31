@@ -7,9 +7,10 @@
 
     <!--设置Struts应用的解码集-->
     <constant name="struts.i18n.encoding" value="utf-8"/>
-    <!-- 
-   <constant name="struts.multipart.saveDir" value="/tmp"/>-->
+    
+    <constant name="struts.multipart.saveDir" value="/tmp"/>
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+     <!-- 开启使用开发模式，详细错误提示 -->
     <constant name="struts.devMode" value="true"/>
     
  
@@ -26,8 +27,10 @@
                     <!--  
                     <param name="allowedTypes">image/x-png,image/bmp,image/gif,image/jpeg,image/jpg</param>
                     -->
-                    <!--配置允许上传文件大小拦截器，单位是字节（2的16次幂=65536（64k））-->
+                    <!-- 配置允许上传文件大小拦截器，单位是字节（2的16次幂=65536（64k））-->
+                    <!--
                     <param name="maximumSize">65536</param>
+                   -->
                 </interceptor-ref>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
@@ -54,6 +57,8 @@
 				<param name="contentType">text/html</param>
 			</result>
 		</action>
+		
+	
 	<action name="upload_*" class="com.ls.nssh.action.UploadAction"
 			method="{1}">
 			 <!--使用拦截器栈-->
@@ -67,7 +72,7 @@
 		<action name="multiUpload_*" class="com.ls.nssh.action.MultiUploadAction"
 			method="{1}">
 			 <!--使用拦截器栈-->
-            <interceptor-ref name="myStack"/>
+           <interceptor-ref name="myStack"/>
 		   <result type="json" name="jsonData">
 				<param name="contentType">text/html</param>
 			</result>
@@ -95,6 +100,12 @@
 
             </result>
         </action>
-		
+			
+		<action name="chart_*" class="com.ls.nssh.action.ChartAction"
+			method="{1}">
+			<result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
 	</package>
 </struts>    

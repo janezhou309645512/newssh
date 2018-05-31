@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -50,9 +51,9 @@ public class MultiUploadAction extends BaseAction{
 	    
 	    public String multiUploadFile(){
 	    	try{
-	        //文件保存路径
-	       
-	        File file = new File("E:/multiUploadFile");
+	    		   //文件保存路径
+	         
+	        File file = new File("D:/webfile/MultiUploadFile");
 	        //不存在则创建
 	        if(!file.exists()){
 	            file.mkdir();
@@ -71,6 +72,14 @@ public class MultiUploadAction extends BaseAction{
 			}
 	        return "jsonData";
 	    }
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
 	
 	
 	

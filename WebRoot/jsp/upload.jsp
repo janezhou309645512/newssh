@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <form  id='uploadfile' method="post" action="/newssh/multiUpload_multiUploadFile.action" enctype="multipart/form-data">
 	<div style="margin:20px 0;"></div>
 	<div class="easyui-panel" title="Upload File" style="width:50%;height:100%;padding:30px 70px 50px 70px">
-	<!--  
+	
 		<div style="margin-bottom:20px">
 			<div>Name:</div>
 			<input class="easyui-textbox" style="width:100%">
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>文件1:</div>
 			<input class="easyui-filebox" name="file" data-options="prompt:'选择一个文件...'" style="width:100%">
 		</div>
-		-->
+		
 	    <input type="file" id="xdaTanFileImg"  multiple="multiple"  name="upload" onchange="xmTanUploadImg(this)"/>  
     <div class="img-box" id="imgboxid">  
   
@@ -122,6 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
       $('#uploadfile').form({
 		success:function(result){
+		
+		
 		 var data=$.parseJSON(result); 
                                  var message=data.message;
                                   if (message=="OK"){//提交成功
