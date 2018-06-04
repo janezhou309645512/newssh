@@ -7,12 +7,14 @@
 
     <!--设置Struts应用的解码集-->
     <constant name="struts.i18n.encoding" value="utf-8"/>
-    
+    <!--  
     <constant name="struts.multipart.saveDir" value="/tmp"/>
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    -->
      <!-- 开启使用开发模式，详细错误提示 -->
+     <!--  
     <constant name="struts.devMode" value="true"/>
-    
+    -->
  
    
 
@@ -57,7 +59,15 @@
 				<param name="contentType">text/html</param>
 			</result>
 		</action>
-		
+		<action name="chart_*" class="com.ls.nssh.action.ChartAction"
+			method="{1}">
+			<result type="json" name="jsonData">
+				<param name="contentType">text/html</param>
+			</result>
+				<result type="json" name="paginationData">
+				<param name="root">paginationData</param>
+			</result>
+		</action>
 	
 	<action name="upload_*" class="com.ls.nssh.action.UploadAction"
 			method="{1}">
@@ -101,11 +111,6 @@
             </result>
         </action>
 			
-		<action name="chart_*" class="com.ls.nssh.action.ChartAction"
-			method="{1}">
-			<result type="json" name="jsonData">
-				<param name="contentType">text/html</param>
-			</result>
-		</action>
+		
 	</package>
 </struts>    

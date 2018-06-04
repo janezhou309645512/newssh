@@ -1,6 +1,7 @@
 package com.ls.nssh.action;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -13,44 +14,37 @@ import org.springframework.stereotype.Controller;
 @Controller
 @Scope("session")
 public class ChartAction extends BaseAction{
+	private static final long serialVersionUID = 1L;
 	
 	
-	private HashMap<String, Object> map;
+	private Map<Object, Object> paginationData;
 	
 	public String loadCharts(){
 		
 		try{
-			map=new HashMap<String, Object>();
+			paginationData=new HashMap<Object, Object>();
 		//String userNo = getRequest().getParameter("userNo");
 		
-		map.put("x", "['分切', '模切', '手工', 'ipqc', '包装']");
-		map.put("y","[5, 3, 4, 7, 2]");
-		
-		
+			//数组
+			String[] x={"分切", "模切", "手工", "ipqc", "包装"};
+			int[] y1 = {5, 3, 4, 7, 2};
+			int[] y2={1, 3, 4, 4, -2};
+			int[] y3={5, -2, 4, -1,3};
+			paginationData.put("x", x);
+			paginationData.put("y1",y1);
+			paginationData.put("y2",y2);
+			paginationData.put("y3",y3);
 		
 		
 		
 		
 		}catch (Exception e) {
 			
+			
+			
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return "jsonData";
+	  return "paginationData";
 		
 		
 		
@@ -58,13 +52,14 @@ public class ChartAction extends BaseAction{
 		
 	}
 
-	public HashMap<String, Object> getMap() {
-		return map;
+	public Map<Object, Object> getPaginationData() {
+		return paginationData;
 	}
 
-	public void setMap(HashMap<String, Object> map) {
-		this.map = map;
+	public void setPaginationData(Map<Object, Object> paginationData) {
+		this.paginationData = paginationData;
 	}
+
 	
 	
 	

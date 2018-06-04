@@ -39,9 +39,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			userNo:'janezhou'// 新厂
 		},
 		success : function(data) {
-		alert(data);
+		
+		
 		var x=data.x;
-		var y=data.y;
+		
+		var y1=data.y1;
+		var y2=data.y2;
+		var y3=data.y3;
+		
+		alert(x+";"+y3);
 		
         
         
@@ -53,12 +59,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         text: '包含负值的柱形图'
     },
     xAxis: {
-        categories: ['分切', '模切', '手工', 'ipqc', '包装']
+        categories:x
     },
     series: [{
         name: '小张',
-        data: [5, 3, 4, 7, 2]
-    }]
+        data:y1
+    },{
+        name: '小明',
+        data:y2
+    },{
+        name: '小刘',
+        data:y3
+    }
+    ]
 });
 }
 });
